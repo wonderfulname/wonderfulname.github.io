@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="预编译  创建AO对象 找形参和变量声明， 将变量和形参名作为AO属性名，值为undefined 将实参值和形参值统一 在函数体里面找函数声明，值赋予函数体  123456789101112function test(a, b) &amp;#123;    console.log(a);    c = 0;    var c;    a = 3;    b = 2;    console.log(b);">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-28T03:21:43.319Z">
+<meta property="og:updated_time" content="2019-02-28T03:29:08.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="渡一笔记">
 <meta name="twitter:description" content="预编译  创建AO对象 找形参和变量声明， 将变量和形参名作为AO属性名，值为undefined 将实参值和形参值统一 在函数体里面找函数声明，值赋予函数体  123456789101112function test(a, b) &amp;#123;    console.log(a);    c = 0;    var c;    a = 3;    b = 2;    console.log(b);">
@@ -94,6 +94,7 @@
 <li>在函数体里面找函数声明，值赋予函数体</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function test(a, b) &#123;</span><br><span class="line">    console.log(a);</span><br><span class="line">    c = 0;</span><br><span class="line">    var c;</span><br><span class="line">    a = 3;</span><br><span class="line">    b = 2;</span><br><span class="line">    console.log(b);</span><br><span class="line">    function b () &#123;&#125;</span><br><span class="line">    function d () &#123;&#125;</span><br><span class="line">    console.log(b);</span><br><span class="line">&#125;</span><br><span class="line">test(1)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><strong>类数组</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//类数组 属性要为索引(数字)属性， 必须有length属性 最好加上push</span><br><span class="line">var obj = &#123;</span><br><span class="line">  &apos;2&apos;: &apos;a&apos;,</span><br><span class="line">  &apos;3&apos;: &apos;b&apos;,</span><br><span class="line">  &apos;length&apos;: 3,</span><br><span class="line">  &apos;push&apos;: Array.prototype.push,</span><br><span class="line">  &apos;splice&apos;: Array.prototype.splice  //添加这个属性 对象看起来会像数组一样[]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.push(&apos;c&apos;)</span><br><span class="line">console.log(obj)</span><br><span class="line">//类似原理</span><br><span class="line">// Array.prototype.push = function(target) &#123;</span><br><span class="line">//   this[this.length] = target;</span><br><span class="line">//   this.length ++;</span><br><span class="line">// &#125;</span><br></pre></td></tr></table></figure>
 <p><strong>封装typeof</strong></p>
@@ -104,7 +105,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/渡一笔记/" data-id="cjso2go7r0001yo7br3lvns2v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/渡一笔记/" data-id="cjso2mtiu0001x07bq410trrq" class="article-share-link">Share</a>
       
       
     </footer>
