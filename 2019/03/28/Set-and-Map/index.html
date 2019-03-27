@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JS,ES6,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SetSet 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。NaN 是与 NaN 相等的（虽然 NaN !== NaN），剩下所有其它的值是根据 === 运算符的结果判断是否相等。  基本集合操作  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950le">
+<meta name="keywords" content="JS,ES6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set and Map">
+<meta property="og:url" content="http://yoursite.com/2019/03/28/Set-and-Map/index.html">
+<meta property="og:site_name" content="luhao‘s blog">
+<meta property="og:description" content="SetSet 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。NaN 是与 NaN 相等的（虽然 NaN !== NaN），剩下所有其它的值是根据 === 运算符的结果判断是否相等。  基本集合操作  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950le">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-27T16:40:15.334Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Set and Map">
+<meta name="twitter:description" content="SetSet 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。NaN 是与 NaN 相等的（虽然 NaN !== NaN），剩下所有其它的值是根据 === 运算符的结果判断是否相等。  基本集合操作  1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950le">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/28/Set-and-Map/">
+
+
+
+
+
+  <title>Set and Map | luhao‘s blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">luhao‘s blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/28/Set-and-Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="1037378313@qq.com">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="luhao‘s blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Set and Map</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-28T00:37:17+08:00">
+                2019-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6-notes/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6 notes</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><h4 id="Set-对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。"><a href="#Set-对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。" class="headerlink" title="Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。"></a>Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。</h4><p><em>NaN 是与 NaN 相等的（虽然 NaN !== NaN），剩下所有其它的值是根据 === 运算符的结果判断是否相等。</em></p>
+<blockquote>
+<p>基本集合操作</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> setA = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]),</span><br><span class="line">    setB = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">2</span>, <span class="number">3</span>]),</span><br><span class="line">    setC = <span class="keyword">new</span> <span class="built_in">Set</span>([<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//包含</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSuperSet</span>(<span class="params">set, subset</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> elem <span class="keyword">of</span> subset) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">set</span>.has(elem)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//交叉</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">intersection</span>(<span class="params">setA, setB</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> _intersection = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> elem <span class="keyword">of</span> setB) &#123;</span><br><span class="line">    <span class="keyword">if</span> (setA.has(elem)) &#123;</span><br><span class="line">      _intersection.add(elem);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _intersection;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//联合</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">union</span>(<span class="params">setA, setB</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> _union = <span class="keyword">new</span> <span class="built_in">Set</span>(setA);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> elem <span class="keyword">of</span> setB) &#123;</span><br><span class="line">    _union.add(elem);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _union;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//不是很完善</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">difference</span>(<span class="params">setA, setB</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> _difference = <span class="keyword">new</span> <span class="built_in">Set</span>(setA);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> elem <span class="keyword">of</span> setB) &#123;</span><br><span class="line">    _difference.delete(elem);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _difference;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(isSuperSet(setA, setB)); <span class="comment">// =&gt; true</span></span><br><span class="line"><span class="built_in">console</span>.log(union(setA, setC)); <span class="comment">// =&gt; Set [1, 2, 3, 4, 5, 6]</span></span><br><span class="line"><span class="built_in">console</span>.log(intersection(setA, setC)); <span class="comment">// =&gt; Set [3, 4]</span></span><br><span class="line"><span class="built_in">console</span>.log(difference(setA, setC)); <span class="comment">// =&gt; Set [1, 2]</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<blockquote>
+<p>数组去重</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">32</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="built_in">console</span>.log([...new <span class="built_in">Set</span>(numbers)]);</span><br></pre></td></tr></table></figure>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><h4 id="Map-对象保存键值对。任何值-对象或者原始值-都可以作为一个键或一个值。"><a href="#Map-对象保存键值对。任何值-对象或者原始值-都可以作为一个键或一个值。" class="headerlink" title="Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。"></a>Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。</h4><blockquote>
+<p>Map 是一个键值对的集合，很像 Object。但主要的区别是，Map 允许所有数据类型作为键。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"></span><br><span class="line">map.set(<span class="string">'1'</span>, <span class="string">'str1'</span>);   <span class="comment">// 字符串作为 key</span></span><br><span class="line">map.set(<span class="number">1</span>, <span class="string">'num1'</span>);     <span class="comment">// 数字作为 key</span></span><br><span class="line">map.set(<span class="literal">true</span>, <span class="string">'bool1'</span>); <span class="comment">// 布尔值作为 key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 还记得普通对象 Object 吗？它将会吧所有的键转化为字符串类型</span></span><br><span class="line"><span class="comment">// 但是 Map 将会保留键的类型，所以下面这两个是不同的：</span></span><br><span class="line">alert( map.get(<span class="number">1</span>)   ); <span class="comment">// 'num1'</span></span><br><span class="line">alert( map.get(<span class="string">'1'</span>) ); <span class="comment">// 'str1'</span></span><br><span class="line"></span><br><span class="line">alert( map.size ); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>将NaN作为Map的键</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">myMap.set(<span class="literal">NaN</span>, <span class="string">"not a number"</span>);</span><br><span class="line"></span><br><span class="line">myMap.get(<span class="literal">NaN</span>); <span class="comment">// "not a number"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> otherNaN = <span class="built_in">Number</span>(<span class="string">"foo"</span>);</span><br><span class="line">myMap.get(otherNaN); <span class="comment">// "not a number"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Map 与 数组</p>
+</blockquote>
+<p><em>使用常规的Map构造函数可以将一个二维键值对数组转换成一个Map对象</em></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> kvArray = [[<span class="string">"key1"</span>, <span class="string">"value1"</span>], [<span class="string">"key2"</span>, <span class="string">"value2"</span>]];</span><br><span class="line"><span class="keyword">let</span> myMap = <span class="keyword">new</span> <span class="built_in">Map</span>(kvArray);   <span class="comment">//Map(2)&#123;"key1" =&gt; "value1", "key2" =&gt; "value2"&#125;</span></span><br></pre></td></tr></table></figure>
+<p><em>用 Object.entries(obj) 初始化map</em></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>(<span class="built_in">Object</span>.entries(&#123;</span><br><span class="line">  name: <span class="string">"John"</span>,</span><br><span class="line">  age: <span class="number">30</span></span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用Array.from函数可以将一个Map对象转换成一个二维键值对数组</p>
+</blockquote>
+<blockquote>
+<p>复制Map</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> original = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>]</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> clone = <span class="keyword">new</span> <span class="built_in">Map</span>(original);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(clone.get(<span class="number">1</span>)); <span class="comment">// one</span></span><br><span class="line"><span class="built_in">console</span>.log(original === clone); <span class="comment">// false. Useful for shallow comparison 浅层拷贝</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>合并Map</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> first = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'one'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'two'</span>],</span><br><span class="line">  [<span class="number">3</span>, <span class="string">'three'</span>]</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> second = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">  [<span class="number">1</span>, <span class="string">'uno'</span>],</span><br><span class="line">  [<span class="number">2</span>, <span class="string">'dos'</span>]</span><br><span class="line">]);</span><br><span class="line"><span class="comment">// 合并两个Map对象时，如果有重复的键值，则后面的会覆盖前面的。</span></span><br><span class="line"><span class="comment">// 展开运算符本质上是将Map对象转换成数组。</span></span><br><span class="line"><span class="keyword">let</span> merged = <span class="keyword">new</span> <span class="built_in">Map</span>([...first, ...second]);</span><br></pre></td></tr></table></figure>
+<h3 id="WeakMap-WeakSet"><a href="#WeakMap-WeakSet" class="headerlink" title="WeakMap + WeakSet"></a>WeakMap + WeakSet</h3><blockquote>
+<p>WeakMap 他的键必须是对象， 不能是基础类型的值</p>
+</blockquote>
+<blockquote>
+<p>相比于 Map 与 Set 的强引用，弱引用可以令对象在 “适当” 情况下正确被 GC 回收，减少内存资源浪费。</p>
+</blockquote>
+<blockquote>
+<p>在弱引用的情况下，GC 回收时，不会把其视作一个引用；如果没有其他强引用存在，那这个对象将被回收</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. WeakMap 键必须是对象</span></span><br><span class="line"><span class="keyword">const</span> err = <span class="keyword">new</span> <span class="built_in">WeakMap</span>([[<span class="string">'a'</span>,<span class="number">1</span>]]);    <span class="comment">// TypeError: Invalid value used as weak map key</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. WeakMap/WeakSet 的弱引用</span></span><br><span class="line"><span class="keyword">const</span> wm = <span class="keyword">new</span> <span class="built_in">WeakMap</span>([[&#123;<span class="string">'a'</span>:<span class="number">1</span>&#125;,<span class="number">1</span>]]);    <span class="comment">// Object &#123;'a': 1&#125; 会正常被 GC 回收</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>(); </span><br><span class="line">ws.add(&#123;<span class="string">'a'</span>:<span class="number">1</span>&#125;);    <span class="comment">// Object &#123;'a': 1&#125; 会正常被 GC 回收</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;<span class="string">'b'</span>: <span class="number">1</span>&#125;;</span><br><span class="line">ws.add(obj);        <span class="comment">// Object &#123;'b': 1&#125; 不会被正常 GC 回收，因为存在一个强引用</span></span><br><span class="line">obj = <span class="literal">undefined</span>;    <span class="comment">// Object &#123;'b': 1&#125; 会正常被 GC 回收</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://taobaofed.org/blog/2016/11/03/es6-advanced/" target="_blank" rel="noopener">淘宝前端团队</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/26/数组拓展/" rel="next" title="数组拓展">
+                <i class="fa fa-chevron-left"></i> 数组拓展
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">1037378313@qq.com</p>
+              <p class="site-description motion-element" itemprop="description">记录成长道路上的点点滴滴</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">1.</span> <span class="nav-text">Set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。"><span class="nav-number">1.1.</span> <span class="nav-text">Set 对象允许你存储任何类型的唯一值，无论是原始值或者是对象引用。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Map-对象保存键值对。任何值-对象或者原始值-都可以作为一个键或一个值。"><span class="nav-number">2.1.</span> <span class="nav-text">Map 对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMap-WeakSet"><span class="nav-number">3.</span> <span class="nav-text">WeakMap + WeakSet</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1037378313@qq.com</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
